@@ -41,7 +41,7 @@ public class GameScreen implements Screen {
         bullets = new ArrayList<Bullet>();
         gameWorld.world.setContactListener(new PowerContactListener(gameWorld.world, player, bullets));
 
-        texture = new Texture("badlogic.jpg");
+        texture = new Texture("objects/bullet2.png");
     }
 
     @Override
