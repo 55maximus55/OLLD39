@@ -1,0 +1,19 @@
+
+player.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+manOld_gun
+  rotate: false
+  xy: 1, 1
+  size: 49, 43
+  orig: 49, 43
+  offset: 0, 0
+  index: -1
+manOld_reload
+  rotate: false
+  xy: 52, 1
+  size: 39, 43
+  orig: 39, 43
+  offset: 0, 0
+  index: -1

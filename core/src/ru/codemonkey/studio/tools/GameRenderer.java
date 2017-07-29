@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
 
 import box2dLight.RayHandler;
+import ru.codemonkey.studio.objects.Player;
 
 /**
  * Created by maximus on 29.07.2017.
@@ -38,8 +39,11 @@ public class GameRenderer implements Disposable {
         mapRenderer = new OrthogonalTiledMapRenderer(map);
     }
 
-    public void render() {
+    public void render(Player player) {
         mapRenderer.render();
+        batch.begin();
+        player.draw(batch);
+        batch.end();
         debugRenderer.render(world, camera.combined);
     }
 

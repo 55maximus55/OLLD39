@@ -1,6 +1,7 @@
 package ru.codemonkey.studio;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -9,12 +10,15 @@ import ru.codemonkey.studio.screens.GameScreen;
 
 public class Power extends Game {
 	public SpriteBatch batch;
-	private TextureAtlas atlas, atlas1;
+	private TextureAtlas atlas;
 	public Skin skin;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
+		skin = new Skin();
+		atlas = new TextureAtlas(Gdx.files.internal("characters/player.pack"));
+		skin.addRegions(atlas);
 		setScreen(new GameScreen(this));
 	}
 	
