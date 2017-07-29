@@ -3,6 +3,7 @@ package ru.codemonkey.studio.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 
 import java.util.ArrayList;
 
@@ -27,6 +28,7 @@ public class GameScreen implements Screen {
     private Player player;
     ArrayList<Bullet> bullets;
 
+    private Texture texture;
 
     public GameScreen(Power game) {
         this.game = game;
@@ -38,6 +40,8 @@ public class GameScreen implements Screen {
         player = new Player(game.skin.getRegion("manOld_gun"),gameWorld.world, gameWorld.map, controlHandler, renderer.rayHandler, 1f);
         gameWorld.world.setContactListener(new PowerContactListener(player));
         bullets = new ArrayList<Bullet>();
+
+        texture = new Texture("badlogic.jpg");
     }
 
     @Override
@@ -52,14 +56,17 @@ public class GameScreen implements Screen {
 
         player.update();
         if (Gdx.input.justTouched()) {
-            Bullet bullet = new Bullet(gameWorld.world, renderer.rayHandler, player.getPos(), controlHandler, 1000000);
+            Bullet bullet = new Bullet(texture, gameWorld.world, renderer.rayHandler, player.getPos(), controlHandler, 20);
             bullets.add(bullet);
+        }
+        for (int i = 0; i < bullets.size(); i++) {
+            bullets.get(i).update();
         }
 
         gameWorld.update(delta);
         renderer.update(player.getPos().x * Power.S, player.getPos().y * Power.S);
 
-        renderer.render(player);
+        renderer.render(player, bullets);
     }
 
     @Override

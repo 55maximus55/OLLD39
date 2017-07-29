@@ -25,9 +25,6 @@ import ru.codemonkey.studio.tools.DETControlHandler;
  */
 
 public class Player extends Sprite implements Disposable {
-
-
-
     private Body body;
     private PointLight light;
     private float volume;
