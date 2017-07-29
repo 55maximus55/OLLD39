@@ -89,8 +89,8 @@ public class Player extends Sprite implements Disposable {
         if(c.x * c.x + c.y * c.y > 1){
             c = controlHandler.vectorSinCos(c);
         }
-        c.x *= 3.5f;
-        c.y *= 3.5f;
+        c.x *= 3.3f;
+        c.y *= 3.3f;
         body.applyLinearImpulse(c, body.getWorldCenter(), true);
     }
 
