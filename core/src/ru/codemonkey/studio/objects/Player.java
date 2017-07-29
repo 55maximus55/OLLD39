@@ -1,6 +1,8 @@
 package ru.codemonkey.studio.objects;
 
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g3d.environment.PointLight;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -21,7 +23,10 @@ import ru.codemonkey.studio.tools.DETControlHandler;
  * Created by mark on 29.07.17.
  */
 
-public class Player implements Disposable {
+public class Player extends Sprite implements Disposable {
+
+
+
     private Body body;
     private PointLight light;
     private float volume;
@@ -33,7 +38,8 @@ public class Player implements Disposable {
 
     private DETControlHandler controlHandler;
 
-    public Player(World world, TiledMap map, DETControlHandler controlHandler, RayHandler rayHandler, float volume){
+    public Player(Texture texture, World world, TiledMap map, DETControlHandler controlHandler, RayHandler rayHandler, float volume){
+        super(texture);
         this.controlHandler = controlHandler;
         this.volume = volume;
         HP = 100;
@@ -56,15 +62,19 @@ public class Player implements Disposable {
         fDef.restitution = 1;
         fDef.density = 0;
 
+
+
         body.createFixture(fDef);
+    }
+
+
+
+    public Vector2 getPos() {
+        return body.getPosition();
     }
 
     @Override
     public void dispose() {
 
-    }
-
-    public Vector2 getPos() {
-        return body.getPosition();
     }
 }

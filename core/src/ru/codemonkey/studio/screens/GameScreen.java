@@ -3,6 +3,7 @@ package ru.codemonkey.studio.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 
 import ru.codemonkey.studio.Power;
 import ru.codemonkey.studio.objects.GameWorld;
@@ -29,7 +30,7 @@ public class GameScreen implements Screen {
         renderer = new GameRenderer(game.batch, gameWorld.map, gameWorld.world);
         controlHandler = new DETControlHandler();
 
-        player = new Player(gameWorld.world, gameWorld.map, controlHandler, renderer.rayHandler, 1f);
+        player = new Player((Texture) game.skin.getDrawable("1") ,gameWorld.world, gameWorld.map, controlHandler, renderer.rayHandler, 1f);
     }
 
     @Override
