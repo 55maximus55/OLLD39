@@ -22,10 +22,12 @@ import ru.codemonkey.studio.tools.DETControlHandler;
 public class Bullet extends Sprite implements Disposable {
     private PointLight light;
     private Body body;
+    public boolean a;
 
     public Bullet(Texture texture, World world, RayHandler rayHandler, Vector2 pos, DETControlHandler controlHandler, float speed){
         super(texture);
-        setScale(4f / 256f);
+        a = true;
+        setScale(4f / getHeight());
         BodyDef bDef = new BodyDef();
         bDef.type = BodyDef.BodyType.DynamicBody;
         bDef.position.set((float) (pos.x + Math.sin(Math.toRadians(controlHandler.mouseControl())) * 5 / Power.S),
@@ -44,14 +46,21 @@ public class Bullet extends Sprite implements Disposable {
         fDef.density = 0;
 
         body.createFixture(fDef);
+        body.setUserData("bullet");
     }
 
     public void update() {
-        setPosition(body.getPosition().x * Power.S - 128, body.getPosition().y * Power.S - 128);
+        if (a) {
+            setPosition(body.getPosition().x * Power.S - 128, body.getPosition().y * Power.S - 128);
+        }
     }
 
     @Override
     public void dispose() {
 
+    }
+
+    public Body getBody() {
+        return body;
     }
 }

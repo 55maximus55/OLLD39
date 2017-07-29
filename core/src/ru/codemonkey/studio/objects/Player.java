@@ -61,6 +61,7 @@ public class Player extends Sprite implements Disposable {
         fDef.density = 0;
 
         body.createFixture(fDef);
+        body.setUserData("player");
     }
 
     public void update() {

@@ -37,6 +37,7 @@ public class Box2dWorldCreator {
             shape.setAsBox(rect.getWidth() / Power.S / 2, rect.getHeight() / Power.S / 2);
             fdef.shape = shape;
             body.createFixture(fdef);
+            body.setUserData("wall");
         }
         return world;
     }

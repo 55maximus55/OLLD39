@@ -38,8 +38,8 @@ public class GameScreen implements Screen {
         controlHandler = new DETControlHandler();
 
         player = new Player(game.skin.getRegion("manOld_gun"),gameWorld.world, gameWorld.map, controlHandler, renderer.rayHandler, 1f);
-        gameWorld.world.setContactListener(new PowerContactListener(player));
         bullets = new ArrayList<Bullet>();
+        gameWorld.world.setContactListener(new PowerContactListener(gameWorld.world, player, bullets));
 
         texture = new Texture("badlogic.jpg");
     }
@@ -56,11 +56,16 @@ public class GameScreen implements Screen {
 
         player.update();
         if (Gdx.input.justTouched()) {
-            Bullet bullet = new Bullet(texture, gameWorld.world, renderer.rayHandler, player.getPos(), controlHandler, 20);
+            Bullet bullet = new Bullet(texture, gameWorld.world, renderer.rayHandler, player.getPos(), controlHandler, 40);
             bullets.add(bullet);
         }
         for (int i = 0; i < bullets.size(); i++) {
-            bullets.get(i).update();
+            if (bullets.get(i).a) {
+                bullets.get(i).update();
+            } else {
+                gameWorld.world.destroyBody(bullets.get(i).getBody());
+                bullets.remove(i);
+            }
         }
 
         gameWorld.update(delta);
@@ -71,7 +76,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        renderer.resize(width, height);
     }
 
     @Override

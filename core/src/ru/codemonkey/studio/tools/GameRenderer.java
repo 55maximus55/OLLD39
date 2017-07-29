@@ -67,4 +67,10 @@ public class GameRenderer implements Disposable {
     public void dispose() {
 
     }
+
+    public void resize(int width, int height) {
+        camera.viewportWidth = 600f;
+        camera.viewportHeight = 600f * height / width;
+        camera.update();
+    }
 }
