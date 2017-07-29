@@ -3,6 +3,7 @@ package ru.codemonkey.studio.objects;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g3d.environment.PointLight;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
 
@@ -21,7 +22,13 @@ public class Enemy implements Disposable{
     private boolean isAlive;
 
     public Enemy(World world, RayHandler rayHandler, float x ,float y){
+        BodyDef bDef = new BodyDef();
+        bDef.type = BodyDef.BodyType.DynamicBody;
+
+        body = world.createBody(bDef);
+
         isAlive = true;
+
     }
 
 

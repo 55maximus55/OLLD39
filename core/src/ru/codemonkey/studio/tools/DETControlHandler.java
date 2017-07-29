@@ -47,8 +47,59 @@ public class DETControlHandler implements Disposable
         if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) ctrl.x += 1;
         return vectorSum(ctrl);
     }
+    public float mouseControl(){
+        int x = Gdx.input.getX();
+        int y = Gdx.input.getY();
+        Vector2 ctrl = new Vector2(x,y);
+        ctrl.sub(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
+        return ctrl.angle();
+    }
 
     public Vector2 vectorSum(Vector2 vector) {
+        Vector2 result = new Vector2(vector);
+
+        if (result.x == 0) {
+            if (result.y > 0) {
+                return new Vector2(0, 1);
+            }
+            else if (result.y < 0){
+                return new Vector2(0, -1);
+            }
+            else if (result.y == 0) {
+                return new Vector2(0, 0);
+            }
+        }
+        else if (result.y == 0) {
+            if (result.x > 0) {
+                return new Vector2(1, 0);
+            }
+            else if (result.x < 0){
+                return new Vector2(-1, 0);
+            }
+        }
+        else {
+            float angle = 0;
+            angle += Math.abs(Math.toDegrees(Math.atan(result.y / result.x)));
+
+            float xx, yy;
+            if (result.x > 0) {
+                xx = (float) Math.cos(Math.toRadians(angle));
+            }
+            else {
+                xx = (float) - Math.cos(Math.toRadians(angle));
+            }
+            if (result.y > 0) {
+                yy = (float) Math.sin(Math.toRadians(angle));
+            }
+            else {
+                yy = (float) - Math.sin(Math.toRadians(angle));
+            }
+            return new Vector2(xx, yy);
+        }
+        return null;
+    }
+
+    public Vector2 vectorSinCos(Vector2 vector) {
         Vector2 result = new Vector2(vector);
 
         if (result.x == 0) {

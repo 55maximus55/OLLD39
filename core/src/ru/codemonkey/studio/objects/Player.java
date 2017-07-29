@@ -66,7 +66,34 @@ public class Player extends Sprite implements Disposable {
     }
 
     public void update() {
+        friction();
+        control();
         setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2);
+        setRotation(controlHandler.mouseControl());
+
+    }
+
+    private void friction() {
+        float s = 3f;
+        Vector2 velocity = new Vector2();
+        velocity.set(body.getLinearVelocity());
+        Vector2 v = new Vector2(velocity);
+        velocity.sub(controlHandler.vectorSinCos(velocity).x * s, controlHandler.vectorSinCos(velocity).y * s);
+        if ((v.x > 0 && velocity.x < 0) || (v.x < 0 && velocity.x > 0) || (v.y > 0 && velocity.y < 0) || (v.y < 0 && velocity.y > 0))
+        {
+            velocity.set(0, 0);
+        }
+        body.setLinearVelocity(velocity);
+    }
+
+    private void control(){
+        Vector2 c = controlHandler.keyControl();
+        if(c.x * c.x + c.y * c.y > 1){
+            c = controlHandler.vectorSinCos(c);
+        }
+        c.x *= 10f;
+        c.y *= 10f;
+        body.applyLinearImpulse(c, body.getWorldCenter(), true);
     }
 
     public Vector2 getPos() {
