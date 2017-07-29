@@ -28,7 +28,7 @@ public class GameScreen implements Screen {
     public GameScreen(Power game) {
         this.game = game;
 
-        gameWorld = new GameWorld("2");
+        gameWorld = new GameWorld("1");
         renderer = new GameRenderer(game.batch, gameWorld.map, gameWorld.world);
         controlHandler = new DETControlHandler();
 

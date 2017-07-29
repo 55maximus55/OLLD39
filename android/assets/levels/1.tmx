@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" tiledversion="1.0.2" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" nextobjectid="38">
- <tileset firstgid="1" source="../../../../1.tsx"/>
+ <tileset firstgid="1" name="tilesheet_complete" tilewidth="32" tileheight="32" tilecount="2160" columns="54">
+  <image source="tilesheet_complete.png" width="1728" height="1280"/>
+ </tileset>
  <layer name="background" width="32" height="32">
   <data encoding="csv">
 35,36,36,36,36,36,36,90,90,90,90,90,36,36,36,36,90,90,90,90,36,36,7,8,1,2,3,4,5,6,7,8,
