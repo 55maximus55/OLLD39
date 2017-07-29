@@ -30,8 +30,10 @@ public class GameRenderer implements Disposable {
         camera = new OrthographicCamera();
         camera.setToOrtho(true);
 
-        debugRenderer = new Box2DDebugRenderer();
         this.world = world;
+        debugRenderer = new Box2DDebugRenderer();
+
+        rayHandler = new RayHandler(world);
 
         mapRenderer = new OrthogonalTiledMapRenderer(map);
     }

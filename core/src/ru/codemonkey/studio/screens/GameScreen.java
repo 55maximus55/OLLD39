@@ -1,12 +1,13 @@
 package ru.codemonkey.studio.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 
 import ru.codemonkey.studio.Power;
 import ru.codemonkey.studio.objects.GameWorld;
+import ru.codemonkey.studio.objects.Player;
+import ru.codemonkey.studio.tools.DETControlHandler;
 import ru.codemonkey.studio.tools.GameRenderer;
 
 /**
@@ -18,14 +19,17 @@ public class GameScreen implements Screen {
 
     private GameWorld gameWorld;
     private GameRenderer renderer;
-
-    float x = 0;
-    float y = 0;
+    private DETControlHandler controlHandler;
+    private Player player;
 
     public GameScreen(Power game) {
         this.game = game;
+
         gameWorld = new GameWorld("2");
         renderer = new GameRenderer(game.batch, gameWorld.map, gameWorld.world);
+        controlHandler = new DETControlHandler();
+
+        player = new Player(gameWorld.world, gameWorld.map, controlHandler, renderer.rayHandler, 1f);
     }
 
     @Override
@@ -37,13 +41,7 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         Gdx.gl20.glClearColor(0, 0, 0, 1);
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) x -= 10;
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) x += 10;
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) y -= 10;
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) y += 10;
-
-        renderer.update(x, y);
+        renderer.update(player.getPos().x, player.getPos().y);
         renderer.render();
     }
 
