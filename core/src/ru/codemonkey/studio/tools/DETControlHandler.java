@@ -52,6 +52,7 @@ public class DETControlHandler implements Disposable
         int y = Gdx.input.getY();
         Vector2 ctrl = new Vector2(x,y);
         ctrl.sub(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
+
         return ctrl.angle();
     }
 

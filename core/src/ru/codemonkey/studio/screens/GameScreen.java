@@ -5,6 +5,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 
+import java.util.ArrayList;
+
 import ru.codemonkey.studio.Power;
 import ru.codemonkey.studio.objects.Bullet;
 import ru.codemonkey.studio.objects.GameWorld;
@@ -24,6 +26,8 @@ public class GameScreen implements Screen {
     private GameRenderer renderer;
     private DETControlHandler controlHandler;
     private Player player;
+    ArrayList<Bullet> bullets;
+
 
     public GameScreen(Power game) {
         this.game = game;
@@ -34,6 +38,7 @@ public class GameScreen implements Screen {
 
         player = new Player(game.skin.getRegion("manOld_gun"),gameWorld.world, gameWorld.map, controlHandler, renderer.rayHandler, 1f);
         gameWorld.world.setContactListener(new PowerContactListener(player));
+        bullets = new ArrayList<Bullet>();
     }
 
     @Override
@@ -47,8 +52,9 @@ public class GameScreen implements Screen {
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         player.update();
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            Bullet bullet = new Bullet(gameWorld.world, renderer.rayHandler, player.getPos(), controlHandler, 100000000)  ;
+        if (Gdx.input.justTouched()) {
+            Bullet bullet = new Bullet(gameWorld.world, renderer.rayHandler, player.getPos(), controlHandler, 100000000);
+            bullets.add(bullet);
         }
 
         gameWorld.update(delta);
