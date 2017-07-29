@@ -1,7 +1,6 @@
 package ru.codemonkey.studio.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 
@@ -53,12 +52,12 @@ public class GameScreen implements Screen {
 
         player.update();
         if (Gdx.input.justTouched()) {
-            Bullet bullet = new Bullet(gameWorld.world, renderer.rayHandler, player.getPos(), controlHandler, 100000000);
+            Bullet bullet = new Bullet(gameWorld.world, renderer.rayHandler, player.getPos(), controlHandler, 1000000);
             bullets.add(bullet);
         }
 
         gameWorld.update(delta);
-        renderer.update(player.getPos().x, player.getPos().y);
+        renderer.update(player.getPos().x * Power.S, player.getPos().y * Power.S);
 
         renderer.render(player);
     }

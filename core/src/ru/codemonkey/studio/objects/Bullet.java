@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
 
 import box2dLight.RayHandler;
+import ru.codemonkey.studio.Power;
 import ru.codemonkey.studio.tools.DETControlHandler;
 
 /**
@@ -22,20 +23,21 @@ public class Bullet implements Disposable {
 
     public Bullet(World world, RayHandler rayHandler, Vector2 pos, DETControlHandler controlHandler, float speed){
         BodyDef bDef = new BodyDef();
-        bDef.type = BodyDef.BodyType.DynamicBody;
-        bDef.position.set((float) (pos.x + Math.sin(Math.toRadians(controlHandler.mouseControl())) * 5),
-                (float) (pos.y - Math.cos(Math.toRadians(controlHandler.mouseControl())) * 15));
+        bDef.type = BodyDef.BodyType.KinematicBody;
+        bDef.position.set((float) (pos.x + Math.sin(Math.toRadians(controlHandler.mouseControl())) * 5 / Power.S),
+                (float) (pos.y - Math.cos(Math.toRadians(controlHandler.mouseControl())) * 15 / Power.S));
+        bDef.bullet = true;
         body = world.createBody(bDef);
         body.setLinearVelocity((float) (Math.cos(Math.toRadians(controlHandler.mouseControl())) * speed), (float) (Math.sin(Math.toRadians(controlHandler.mouseControl())) * speed));
 
         CircleShape shape = new CircleShape();
-        shape.setRadius(2);
+        shape.setRadius(2 / Power.S);
 
         FixtureDef fDef = new FixtureDef();
         fDef.shape = shape;
         fDef.friction = 0;
         fDef.restitution = 0;
-        fDef.density = 565;
+        fDef.density = 0;
 
         body.createFixture(fDef);
     }

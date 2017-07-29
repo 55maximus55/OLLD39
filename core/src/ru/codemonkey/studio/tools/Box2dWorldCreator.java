@@ -11,6 +11,8 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import ru.codemonkey.studio.Power;
+
 /**
  * Created by maximus on 29.07.2017.
  */
@@ -28,11 +30,11 @@ public class Box2dWorldCreator {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight() / 2);
+            bdef.position.set(rect.getX() / Power.S + rect.getWidth() / Power.S / 2, rect.getY() / Power.S + rect.getHeight() / Power.S / 2);
 
             body = world.createBody(bdef);
 
-            shape.setAsBox(rect.getWidth() / 2, rect.getHeight() / 2);
+            shape.setAsBox(rect.getWidth() / Power.S / 2, rect.getHeight() / Power.S / 2);
             fdef.shape = shape;
             body.createFixture(fdef);
         }

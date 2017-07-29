@@ -17,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
 
 import box2dLight.RayHandler;
+import ru.codemonkey.studio.Power;
 import ru.codemonkey.studio.tools.DETControlHandler;
 
 /**
@@ -49,12 +50,12 @@ public class Player extends Sprite implements Disposable {
         bDef.type = BodyDef.BodyType.DynamicBody;
         for(MapObject object : map.getLayers().get("player").getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            bDef.position.set(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight() / 2);
+            bDef.position.set(rect.getX() / Power.S + rect.getWidth() / 2 / Power.S, rect.getY() / Power.S + rect.getHeight() / 2 / Power.S);
         }
         body = world.createBody(bDef);
 
         CircleShape shape = new CircleShape();
-        shape.setRadius(16);
+        shape.setRadius(16 / Power.S);
 
         FixtureDef fDef = new FixtureDef();
         fDef.shape = shape;
@@ -68,9 +69,8 @@ public class Player extends Sprite implements Disposable {
     public void update() {
         friction();
         control();
-        setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2);
+        setPosition(body.getPosition().x * Power.S - getWidth() / 2, body.getPosition().y * Power.S - getHeight() / 2);
         setRotation(controlHandler.mouseControl());
-
     }
 
     private void friction() {
@@ -91,8 +91,8 @@ public class Player extends Sprite implements Disposable {
         if(c.x * c.x + c.y * c.y > 1){
             c = controlHandler.vectorSinCos(c);
         }
-        c.x *= 10f;
-        c.y *= 10f;
+        c.x *= 3.5f;
+        c.y *= 3.5f;
         body.applyLinearImpulse(c, body.getWorldCenter(), true);
     }
 

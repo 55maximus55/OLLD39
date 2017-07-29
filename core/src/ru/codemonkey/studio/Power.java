@@ -12,6 +12,8 @@ public class Power extends Game {
 	public SpriteBatch batch;
 	private TextureAtlas atlas;
 	public Skin skin;
+
+	public static final int S = 10;
 	
 	@Override
 	public void create () {
