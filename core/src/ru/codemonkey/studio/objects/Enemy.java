@@ -5,28 +5,21 @@ import com.badlogic.gdx.graphics.g3d.environment.PointLight;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Disposable;
 
-import ru.codemonkey.studio.tools.DETControlHandler;
-
 /**
  * Created by mark on 29.07.17.
  */
 
-public class Players implements Disposable {
-    private PointLight light;
+public class Enemy implements Disposable{
+    private PointLight pointLight;
+
     private Body body;
-    private float volume;
-    private int HP;
-    private int lampPower;
-    private int overload;
     private Sound sound;
-
-    private DETControlHandler controlHandler;
-
+    private int HP;
+    private boolean isAlive;
 
 
     @Override
     public void dispose() {
 
     }
-
 }
