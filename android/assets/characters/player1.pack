@@ -3,17 +3,17 @@ player.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-player_gun
+manOld_gun
   rotate: false
   xy: 1, 1
-  size: 51, 43
-  orig: 51, 43
+  size: 49, 43
+  orig: 49, 43
   offset: 0, 0
   index: -1
-player_reload
+manOld_reload
   rotate: false
-  xy: 54, 1
-  size: 41, 43
-  orig: 41, 43
+  xy: 52, 1
+  size: 39, 43
+  orig: 39, 43
   offset: 0, 0
   index: -1

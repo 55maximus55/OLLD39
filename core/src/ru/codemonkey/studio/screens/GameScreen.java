@@ -37,7 +37,7 @@ public class GameScreen implements Screen {
         renderer = new GameRenderer(game.batch, gameWorld.map, gameWorld.world);
         controlHandler = new DETControlHandler();
 
-        player = new Player(game.skin.getRegion("manOld_gun"),gameWorld.world, gameWorld.map, controlHandler, renderer.rayHandler, 1f);
+        player = new Player(game.skin.getRegion("player_gun"),gameWorld.world, gameWorld.map, controlHandler, renderer.rayHandler, 1f);
         bullets = new ArrayList<Bullet>();
         gameWorld.world.setContactListener(new PowerContactListener(gameWorld.world, player, bullets));
 
