@@ -16,6 +16,7 @@ import ru.codemonkey.studio.objects.Bullet;
 import ru.codemonkey.studio.objects.Enemy;
 import ru.codemonkey.studio.objects.GameWorld;
 import ru.codemonkey.studio.objects.Player;
+import ru.codemonkey.studio.objects.Povestka;
 import ru.codemonkey.studio.tools.DETControlHandler;
 import ru.codemonkey.studio.tools.GameRenderer;
 import ru.codemonkey.studio.tools.PowerContactListener;
@@ -33,6 +34,7 @@ public class GameScreen implements Screen {
     private Player player;
     ArrayList<Bullet> bullets;
     ArrayList<Enemy> mobs;
+    ArrayList<Povestka> povestkas;
 
 
     private Texture texture;
