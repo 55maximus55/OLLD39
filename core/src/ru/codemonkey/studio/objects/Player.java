@@ -64,7 +64,7 @@ public class Player extends Sprite implements Disposable {
         body.createFixture(fDef);
         body.setUserData("player");
 
-        light = new ConeLight(rayHandler, 500, Color.WHITE, 1.5f, 0, 0, 0, 45);
+        light = new ConeLight(rayHandler, 500, Color.WHITE, 500, 0, 0, 0, 45);
     }
 
     public void update() {
@@ -72,7 +72,8 @@ public class Player extends Sprite implements Disposable {
         control();
         setPosition(body.getPosition().x * Power.S - getWidth() / 2, body.getPosition().y * Power.S - getHeight() / 2);
         setRotation(controlHandler.mouseControl());
-        light.setDirection(360 - controlHandler.mouseControl());
+        light.setDirection(controlHandler.mouseControl());
+        light.setPosition(getPos().x * Power.S, getPos().y * Power.S);
     }
 
     private void friction() {
