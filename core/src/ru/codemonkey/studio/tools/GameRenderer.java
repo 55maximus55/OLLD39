@@ -39,6 +39,13 @@ public class GameRenderer implements Disposable {
         debugRenderer = new Box2DDebugRenderer();
 
         rayHandler = new RayHandler(world);
+        RayHandler.setGammaCorrection(true);
+        RayHandler.useDiffuseLight(false);
+        rayHandler.setBlur(true);
+        rayHandler.setBlurNum(1);
+        rayHandler.setShadows(true);
+        rayHandler.setCulling(true);
+        rayHandler.setAmbientLight(0.1f);
 
         mapRenderer = new OrthogonalTiledMapRenderer(map);
     }
@@ -51,6 +58,7 @@ public class GameRenderer implements Disposable {
         }
         player.draw(batch);
         batch.end();
+        rayHandler.updateAndRender();
         debugRenderer.render(world, camera.combined);
     }
 
@@ -72,5 +80,6 @@ public class GameRenderer implements Disposable {
         camera.viewportWidth = 700f;
         camera.viewportHeight = 700f * height / width;
         camera.update();
+        rayHandler.resizeFBO(width / 2, height / 2);
     }
 }

@@ -27,7 +27,7 @@ public class Bullet extends Sprite implements Disposable {
     public Bullet(Texture texture, World world, RayHandler rayHandler, Vector2 pos, DETControlHandler controlHandler, float speed){
         super(texture);
         a = true;
-        setScale(4f / getWidth());
+        setScale(8f / getWidth());
         BodyDef bDef = new BodyDef();
         bDef.type = BodyDef.BodyType.DynamicBody;
         bDef.position.set((float) (pos.x + Math.sin(Math.toRadians(controlHandler.mouseControl())) * 10 / Power.S),
@@ -37,7 +37,7 @@ public class Bullet extends Sprite implements Disposable {
         body.setLinearVelocity((float) (Math.cos(Math.toRadians(controlHandler.mouseControl())) * speed), (float) (Math.sin(Math.toRadians(controlHandler.mouseControl())) * speed));
 
         CircleShape shape = new CircleShape();
-        shape.setRadius(2 / Power.S);
+        shape.setRadius(4 / Power.S);
 
         FixtureDef fDef = new FixtureDef();
         fDef.shape = shape;
