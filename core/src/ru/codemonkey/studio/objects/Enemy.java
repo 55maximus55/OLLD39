@@ -65,12 +65,12 @@ public class Enemy extends Sprite implements Disposable{
     }
 
     public void goToHero(Vector2 posHero){
-        Vector2 c = posHero;
+        Vector2 c = posHero.sub(body.getPosition());
         c = DETControlHandler.vectorSinCos(c);
         c.x *= 3.3f;
         c.y *= 3.3f;
-        body.applyLinearImpulse(c, body.getWorldCenter(), true);
-        c.sub(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
+        body.setLinearVelocity(c);
+//        c.sub(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
         setRotation(c.angle());
     }
 

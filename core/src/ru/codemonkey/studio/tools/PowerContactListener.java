@@ -29,7 +29,24 @@ public class PowerContactListener implements ContactListener {
 
     @Override
     public void beginContact(Contact contact) {
-
+        if (contact.getFixtureA().getBody().getUserData().equals("enemy") && contact.getFixtureB().getBody().getUserData().equals("bullet")) {
+            for (int i = 0; i < bullets.size(); i++) {
+                if (bullets.get(i).getBody() == contact.getFixtureB().getBody()) {
+                    if (bullets.get(i).getBody() != null) {
+                        bullets.get(i).a = false;
+                    }
+                }
+            }
+        }
+        else if (contact.getFixtureB().getBody().getUserData().equals("enemy") && contact.getFixtureA().getBody().getUserData().equals("bullet")) {
+            for (int i = 0; i < bullets.size(); i++) {
+                if (bullets.get(i).getBody() == contact.getFixtureA().getBody()) {
+                    if (bullets.get(i).getBody() != null) {
+                        bullets.get(i).a = false;
+                    }
+                }
+            }
+        }
     }
 
     @Override

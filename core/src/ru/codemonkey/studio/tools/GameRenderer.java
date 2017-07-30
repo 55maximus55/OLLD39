@@ -46,7 +46,7 @@ public class GameRenderer implements Disposable {
         rayHandler.setBlurNum(1);
         rayHandler.setShadows(true);
         rayHandler.setCulling(true);
-        rayHandler.setAmbientLight(0.1f);
+        rayHandler.setAmbientLight(0.4f);
 
         mapRenderer = new OrthogonalTiledMapRenderer(map);
     }
