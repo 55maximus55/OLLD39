@@ -119,7 +119,7 @@ public class GameScreen implements Screen {
         gameWorld.update(delta);
         renderer.update(player.getPos().x * Power.S, player.getPos().y * Power.S);
 
-        renderer.render(player, bullets, mobs, povestkas);
+        renderer.render(player, bullets, mobs, povestkas, game.font32);
 
         if (player.HP < 0) {
             game.setScreen(new GameOverScreen(game));

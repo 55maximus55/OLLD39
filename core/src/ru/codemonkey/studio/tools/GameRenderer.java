@@ -1,6 +1,7 @@
 package ru.codemonkey.studio.tools;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -27,12 +28,13 @@ public class GameRenderer implements Disposable {
 
     private SpriteBatch batch;
     private OrthographicCamera camera;
+    private SpriteBatch hp;
 
     private OrthogonalTiledMapRenderer mapRenderer;
 
     public GameRenderer(SpriteBatch batch, TiledMap map, World world) {
         this.batch = batch;
-
+        hp = new SpriteBatch();
         camera = new OrthographicCamera();
         camera.setToOrtho(true);
         camera.zoom = 1;
@@ -52,7 +54,7 @@ public class GameRenderer implements Disposable {
         mapRenderer = new OrthogonalTiledMapRenderer(map);
     }
 
-    public void render(Player player, ArrayList<Bullet> bullets, ArrayList<Enemy> mobs, ArrayList<Povestka> povestkas) {
+    public void render(Player player, ArrayList<Bullet> bullets, ArrayList<Enemy> mobs, ArrayList<Povestka> povestkas, BitmapFont font) {
         mapRenderer.render();
         batch.begin();
         for (int i = 0; i < mobs.size();i++){
@@ -68,8 +70,11 @@ public class GameRenderer implements Disposable {
         player.draw(batch);
         batch.end();
         rayHandler.setCombinedMatrix(camera);
+        hp.begin();
+        font.draw(hp, "HP " + player.HP, 100, 100);
+        hp.end();
         rayHandler.updateAndRender();
-        debugRenderer.render(world, camera.combined);
+//        debugRenderer.render(world, camera.combined);
     }
 
     public void update(float x, float y) {
