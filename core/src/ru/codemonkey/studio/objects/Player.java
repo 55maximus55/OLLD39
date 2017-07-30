@@ -31,7 +31,7 @@ public class Player extends Sprite implements Disposable {
     private ConeLight light;
     private PointLight light1;
     private float volume;
-    private int HP;
+    public int HP;
     private int lampPower;
     private int overload;
     private Sound hitSound;
@@ -43,7 +43,7 @@ public class Player extends Sprite implements Disposable {
         super(texture);
         this.controlHandler = controlHandler;
         this.volume = volume;
-        HP = 100;
+        HP = 3;
         lampPower = 100;
         isAlive = true;
 
@@ -82,6 +82,8 @@ public class Player extends Sprite implements Disposable {
         light1.setPosition(getPos().x * Power.S, getPos().y * Power.S);
         light.setDistance(500f * lampPower / 100);
         light1.setDistance(60f * lampPower / 100);
+
+        System.out.println(HP);
 
 //        if (Gdx.input.isKeyPressed(Input.Keys.O)) lampPower--;
 //        if (Gdx.input.isKeyPressed(Input.Keys.P)) lampPower++;

@@ -36,7 +36,7 @@ public class GameScreen implements Screen {
     ArrayList<Enemy> mobs;
     ArrayList<Povestka> povestkas;
 
-    private float timerAttack = 3f;
+    private float timerAttack = 0.5f;
 
     private Texture texture;
 
@@ -55,8 +55,8 @@ public class GameScreen implements Screen {
             mobs.add(new Enemy(game.skin.getRegion("soldier"), gameWorld.world, gameWorld.worldLight, gameWorld.map, renderer.rayHandler, 1f, pos));
         }
         bullets = new ArrayList<Bullet>();
-        gameWorld.world.setContactListener(new PowerContactListener(gameWorld.world, player, bullets,mobs));
         povestkas = new ArrayList<Povestka>();
+        gameWorld.world.setContactListener(new PowerContactListener(gameWorld.world, player, bullets,mobs, povestkas));
 
         texture = new Texture("objects/bullet.png");
     }
@@ -76,12 +76,16 @@ public class GameScreen implements Screen {
         timerAttack -= delta;
         if (timerAttack <= 0) {
             for (int i = 0; i < mobs.size(); i++) {
-                if (mobs.get(i).getPos().dst(player.getPos()) < 80 / Power.S) {
-                    Povestka povestka = new Povestka(game.skin.getRegion("povestka"), gameWorld.world, mobs.get(i).getPos(), controlHandler, 20, mobs.get(i).getRotation());
-                    povestkas.add(povestka);
-                }
+                Povestka povestka = new Povestka(game.skin.getRegion("povestka"), gameWorld.world, mobs.get(i).getPos(), controlHandler, 20, mobs.get(i).getRotation());
+                povestkas.add(povestka);
             }
-            timerAttack = 3f;
+            timerAttack = 0.5f;
+        }
+        for (int i = 0; i < mobs.size(); i++) {
+            if (mobs.get(i).getPos().dst(player.getPos()) < 80 / Power.S) {
+                Povestka povestka = new Povestka(game.skin.getRegion("povestka"), gameWorld.world, mobs.get(i).getPos(), controlHandler, 20, mobs.get(i).getRotation());
+                povestkas.add(povestka);
+            }
         }
         player.update();
         if (Gdx.input.justTouched()) {
