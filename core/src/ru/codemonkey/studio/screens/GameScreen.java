@@ -4,11 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 
 import ru.codemonkey.studio.Power;
 import ru.codemonkey.studio.objects.Bullet;
+import ru.codemonkey.studio.objects.Enemy;
 import ru.codemonkey.studio.objects.GameWorld;
 import ru.codemonkey.studio.objects.Player;
 import ru.codemonkey.studio.tools.DETControlHandler;
@@ -27,6 +32,8 @@ public class GameScreen implements Screen {
     private DETControlHandler controlHandler;
     private Player player;
     ArrayList<Bullet> bullets;
+    ArrayList<Enemy> mobs;
+
 
     private Texture texture;
 
@@ -36,13 +43,21 @@ public class GameScreen implements Screen {
         gameWorld = new GameWorld("1");
         renderer = new GameRenderer(game.batch, gameWorld.map, gameWorld.world);
         controlHandler = new DETControlHandler();
-
+        mobs = new ArrayList<Enemy>();
         player = new Player(game.skin.getRegion("player_gun"),gameWorld.world, gameWorld.map, controlHandler, renderer.rayHandler, 1f);
+
+        for(MapObject object : gameWorld.map.getLayers().get("enemy").getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            Vector2 pos = new Vector2(rect.getX() / Power.S + rect.getWidth() / 2 / Power.S, rect.getY() / Power.S + rect.getHeight() / 2 / Power.S);
+            mobs.add(new Enemy(game.skin.getRegion("player_reload"), gameWorld.world, gameWorld.map, renderer.rayHandler, 1f, pos));
+        }
         bullets = new ArrayList<Bullet>();
         gameWorld.world.setContactListener(new PowerContactListener(gameWorld.world, player, bullets));
 
         texture = new Texture("objects/bullet2.png");
     }
+
+
 
     @Override
     public void show() {
