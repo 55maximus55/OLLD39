@@ -80,6 +80,11 @@ public class Player extends Sprite implements Disposable {
         light.setDirection(controlHandler.mouseControl());
         light.setPosition(getPos().x * Power.S, getPos().y * Power.S);
         light1.setPosition(getPos().x * Power.S, getPos().y * Power.S);
+        light.setDistance(500f * lampPower / 100);
+        light1.setDistance(60f * lampPower / 100);
+
+//        if (Gdx.input.isKeyPressed(Input.Keys.O)) lampPower--;
+//        if (Gdx.input.isKeyPressed(Input.Keys.P)) lampPower++;
     }
 
     private void friction() {
