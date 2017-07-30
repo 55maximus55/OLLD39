@@ -37,12 +37,14 @@ public class Enemy extends Sprite implements Disposable{
     private int HP;
     private boolean isAlive;
     private float volume;
+    private float timer;
 
     public Enemy(TextureRegion texture, World world, TiledMap map, RayHandler rayHandler, float volume, Vector2 pos){
         super(texture);
         this.volume = volume;
         HP = 100;
         isAlive = true;
+        timer = 0;
 
         BodyDef bDef = new BodyDef();
         bDef.type = BodyDef.BodyType.DynamicBody;
@@ -61,9 +63,13 @@ public class Enemy extends Sprite implements Disposable{
         body.setUserData("enemy");
     }
 
-    public void update(Vector2 posHero, ArrayList<Enemy> mobs){
-        goToHero(posHero);
-        avoid(mobs);
+    public void update(float delta,Vector2 posHero, ArrayList<Enemy> mobs){
+        timer -= delta;
+
+        if (timer < 0) {
+            goToHero(posHero);
+            avoid(mobs);
+        }
 
         setPosition(body.getPosition().x * Power.S - getWidth() / 2, body.getPosition().y * Power.S - getHeight() / 2);
     }
@@ -93,8 +99,10 @@ public class Enemy extends Sprite implements Disposable{
         }
     }
     public void hurt(){
+        timer = 0.1f;
+//        System.out.println("C==3");
         Vector2 c = body.getLinearVelocity();
-        body.setLinearVelocity(c.x * - 1, c.y * -1);
+        body.setLinearVelocity(c.x * -0.05f, c.y * -0.05f);
     }
 
 

@@ -52,7 +52,7 @@ public class GameScreen implements Screen {
             mobs.add(new Enemy(game.skin.getRegion("soldier"), gameWorld.world, gameWorld.map, renderer.rayHandler, 1f, pos));
         }
         bullets = new ArrayList<Bullet>();
-        gameWorld.world.setContactListener(new PowerContactListener(gameWorld.world, player, bullets));
+        gameWorld.world.setContactListener(new PowerContactListener(gameWorld.world, player, bullets,mobs));
 
         texture = new Texture("objects/bullet.png");
     }
@@ -75,7 +75,7 @@ public class GameScreen implements Screen {
             bullets.add(bullet);
         }
         for (int i = 0; i < mobs.size();i++){
-            mobs.get(i).update(player.getPos(), mobs);
+            mobs.get(i).update(delta,player.getPos(), mobs);
         }
         for (int i = 0; i < bullets.size(); i++) {
             if (bullets.get(i).a) {

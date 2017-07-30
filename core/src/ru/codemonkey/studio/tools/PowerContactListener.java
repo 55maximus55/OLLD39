@@ -41,10 +41,8 @@ public class PowerContactListener implements ContactListener {
                 }
             }
             for (int i = 0; i < mobs.size();i++){
-                if (mobs.get(i).getBody() ==  contact.getFixtureB().getBody()){
-                    if(mobs.get(i).getBody() != null){
-                        mobs.get(i).hurt();
-                    }
+                if (mobs.get(i).getBody() ==  contact.getFixtureA().getBody()){
+                     mobs.get(i).hurt();
                 }
             }
         }
@@ -57,8 +55,8 @@ public class PowerContactListener implements ContactListener {
                 }
             }
             for (int i = 0; i < mobs.size();i++){
-                if (mobs.get(i).getBody() ==  contact.getFixtureA().getBody()){
-                    if(mobs.get(i).getBody() != null){
+                if (mobs.get(i).getBody() ==  contact.getFixtureB().getBody()){
+                    if(mobs.get(i).getBody().isActive()){
                         mobs.get(i).hurt();
                     }
                 }
