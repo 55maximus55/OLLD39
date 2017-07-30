@@ -29,7 +29,7 @@ public class MainMenuScreen implements Screen {
 
     public MainMenuScreen(final Power game) {
 
-//        sound = Gdx.audio.newSound(Gdx.files.internal("sounds/select.wav"));
+        sound = Gdx.audio.newSound(Gdx.files.internal("sounds/select.wav"));
 
 
         camera = new OrthographicCamera();
@@ -61,7 +61,7 @@ public class MainMenuScreen implements Screen {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 super.touchUp(event, x, y, pointer, button);
-//                sound.play(game.getSoundVolume());
+                sound.play();
                 stage.dispose();
                 game.setScreen(new GameScreen(game));
             }
