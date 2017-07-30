@@ -54,7 +54,7 @@ public class GameScreen implements Screen {
         bullets = new ArrayList<Bullet>();
         gameWorld.world.setContactListener(new PowerContactListener(gameWorld.world, player, bullets));
 
-        texture = new Texture("objects/bullet2.png");
+        texture = new Texture("objects/bullet.png");
     }
 
 
