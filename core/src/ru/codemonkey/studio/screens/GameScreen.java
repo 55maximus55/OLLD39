@@ -74,6 +74,9 @@ public class GameScreen implements Screen {
             Bullet bullet = new Bullet(texture, gameWorld.world, renderer.rayHandler, player.getPos(), controlHandler, 40);
             bullets.add(bullet);
         }
+        for (int i = 0; i < mobs.size();i++){
+            mobs.get(i).update(player.getPos());
+        }
         for (int i = 0; i < bullets.size(); i++) {
             if (bullets.get(i).a) {
                 bullets.get(i).update();
@@ -86,7 +89,7 @@ public class GameScreen implements Screen {
         gameWorld.update(delta);
         renderer.update(player.getPos().x * Power.S, player.getPos().y * Power.S);
 
-        renderer.render(player, bullets);
+        renderer.render(player, bullets, mobs);
     }
 
     @Override

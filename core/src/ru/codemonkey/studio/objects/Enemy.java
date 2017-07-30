@@ -1,5 +1,6 @@
 package ru.codemonkey.studio.objects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -43,10 +44,7 @@ public class Enemy extends Sprite implements Disposable{
 
         BodyDef bDef = new BodyDef();
         bDef.type = BodyDef.BodyType.DynamicBody;
-        for(MapObject object : map.getLayers().get("enemy").getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            bDef.position.set(rect.getX() / Power.S + rect.getWidth() / 2 / Power.S, rect.getY() / Power.S + rect.getHeight() / 2 / Power.S);
-        }
+        bDef.position.set(pos);
         body = world.createBody(bDef);
         CircleShape shape = new CircleShape();
         shape.setRadius(16 / Power.S);
@@ -63,6 +61,7 @@ public class Enemy extends Sprite implements Disposable{
 
     public void update(Vector2 posHero){
         goToHero(posHero);
+        setPosition(body.getPosition().x * Power.S - getWidth() / 2, body.getPosition().y * Power.S - getHeight() / 2);
     }
 
     public void goToHero(Vector2 posHero){
@@ -71,6 +70,8 @@ public class Enemy extends Sprite implements Disposable{
         c.x *= 3.3f;
         c.y *= 3.3f;
         body.applyLinearImpulse(c, body.getWorldCenter(), true);
+        c.sub(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
+        setRotation(c.angle());
     }
 
 
