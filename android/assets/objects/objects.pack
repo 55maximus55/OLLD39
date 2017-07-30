@@ -1,0 +1,47 @@
+
+objects.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+btn_pressed
+  rotate: false
+  xy: 1, 531
+  size: 480, 270
+  orig: 480, 270
+  offset: 0, 0
+  index: -1
+btn_unpressed
+  rotate: false
+  xy: 1, 259
+  size: 480, 270
+  orig: 480, 270
+  offset: 0, 0
+  index: -1
+cmsLogo
+  rotate: false
+  xy: 483, 531
+  size: 480, 270
+  orig: 480, 270
+  offset: 0, 0
+  index: -1
+logo
+  rotate: false
+  xy: 1, 1
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+bullet
+  rotate: false
+  xy: 483, 465
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+povestka
+  rotate: false
+  xy: 965, 769
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
