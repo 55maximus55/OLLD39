@@ -17,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
 
 import box2dLight.ConeLight;
+import box2dLight.PointLight;
 import box2dLight.RayHandler;
 import ru.codemonkey.studio.Power;
 import ru.codemonkey.studio.tools.DETControlHandler;
@@ -28,6 +29,7 @@ import ru.codemonkey.studio.tools.DETControlHandler;
 public class Player extends Sprite implements Disposable {
     private Body body;
     private ConeLight light;
+    private PointLight light1;
     private float volume;
     private int HP;
     private int lampPower;
@@ -64,7 +66,9 @@ public class Player extends Sprite implements Disposable {
         body.createFixture(fDef);
         body.setUserData("player");
 
-        light = new ConeLight(rayHandler, 500, Color.WHITE, 500, 0, 0, 0, 45);
+        light = new ConeLight(rayHandler, 500, Color.BLACK, 500, 0, 0, 0, 35);
+        light.setSoftnessLength(48);
+        light1 = new PointLight(rayHandler, 500, Color.BLACK, 60, 0, 0);
     }
 
     public void update() {
@@ -74,6 +78,7 @@ public class Player extends Sprite implements Disposable {
         setRotation(controlHandler.mouseControl());
         light.setDirection(controlHandler.mouseControl());
         light.setPosition(getPos().x * Power.S, getPos().y * Power.S);
+        light1.setPosition(getPos().x * Power.S, getPos().y * Power.S);
     }
 
     private void friction() {

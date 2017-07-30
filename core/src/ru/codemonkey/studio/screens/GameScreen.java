@@ -16,6 +16,7 @@ import ru.codemonkey.studio.objects.Bullet;
 import ru.codemonkey.studio.objects.Enemy;
 import ru.codemonkey.studio.objects.GameWorld;
 import ru.codemonkey.studio.objects.Player;
+import ru.codemonkey.studio.objects.Povestka;
 import ru.codemonkey.studio.tools.DETControlHandler;
 import ru.codemonkey.studio.tools.GameRenderer;
 import ru.codemonkey.studio.tools.PowerContactListener;
@@ -33,6 +34,7 @@ public class GameScreen implements Screen {
     private Player player;
     ArrayList<Bullet> bullets;
     ArrayList<Enemy> mobs;
+    ArrayList<Povestka> povestkas;
 
 
     private Texture texture;
@@ -49,7 +51,7 @@ public class GameScreen implements Screen {
         for(MapObject object : gameWorld.map.getLayers().get("enemy").getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             Vector2 pos = new Vector2(rect.getX() / Power.S + rect.getWidth() / 2 / Power.S, rect.getY() / Power.S + rect.getHeight() / 2 / Power.S);
-            mobs.add(new Enemy(game.skin.getRegion("soldier"), gameWorld.world, gameWorld.map, renderer.rayHandler, 1f, pos));
+            mobs.add(new Enemy(game.skin.getRegion("soldier"), gameWorld.world, gameWorld.worldLight, gameWorld.map, renderer.rayHandler, 1f, pos));
         }
         bullets = new ArrayList<Bullet>();
         gameWorld.world.setContactListener(new PowerContactListener(gameWorld.world, player, bullets,mobs));

@@ -1,15 +1,10 @@
 package ru.codemonkey.studio.objects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.environment.PointLight;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -22,7 +17,6 @@ import java.util.ArrayList;
 
 import box2dLight.RayHandler;
 import ru.codemonkey.studio.Power;
-import ru.codemonkey.studio.tools.ControlHandler;
 import ru.codemonkey.studio.tools.DETControlHandler;
 
 /**
@@ -33,13 +27,14 @@ public class Enemy extends Sprite implements Disposable{
     private PointLight pointLight;
 
     private Body body;
+    private Body bodyL;
     private Sound sound;
     private int HP;
     private boolean isAlive;
     private float volume;
     private float timer;
 
-    public Enemy(TextureRegion texture, World world, TiledMap map, RayHandler rayHandler, float volume, Vector2 pos){
+    public Enemy(TextureRegion texture, World world, World worldL, TiledMap map, RayHandler rayHandler, float volume, Vector2 pos){
         super(texture);
         this.volume = volume;
         HP = 100;
@@ -51,7 +46,7 @@ public class Enemy extends Sprite implements Disposable{
         bDef.position.set(pos);
         body = world.createBody(bDef);
         CircleShape shape = new CircleShape();
-        shape.setRadius(16 / Power.S);
+        shape.setRadius(24 / Power.S);
 
         FixtureDef fDef = new FixtureDef();
         fDef.shape = shape;
@@ -61,6 +56,21 @@ public class Enemy extends Sprite implements Disposable{
 
         body.createFixture(fDef);
         body.setUserData("enemy");
+
+        bDef = new BodyDef();
+        bDef.type = BodyDef.BodyType.DynamicBody;
+        bDef.position.set(pos);
+        bodyL = worldL.createBody(bDef);
+        shape = new CircleShape();
+        shape.setRadius(24);
+
+        fDef = new FixtureDef();
+        fDef.shape = shape;
+        fDef.friction = 0;
+        fDef.restitution = 1;
+        fDef.density = 0;
+
+        bodyL.createFixture(fDef);
     }
 
     public void update(float delta,Vector2 posHero, ArrayList<Enemy> mobs){
@@ -72,6 +82,7 @@ public class Enemy extends Sprite implements Disposable{
         }
 
         setPosition(body.getPosition().x * Power.S - getWidth() / 2, body.getPosition().y * Power.S - getHeight() / 2);
+        bodyL.setTransform(getX() + getWidth() / 2, getY() + getHeight() / 2, 0);
     }
     public Vector2 getPos(){
         return body.getPosition();
@@ -104,6 +115,7 @@ public class Enemy extends Sprite implements Disposable{
         Vector2 c = body.getLinearVelocity();
         body.setLinearVelocity(c.x * -0.05f, c.y * -0.05f);
     }
+
 
 
 
