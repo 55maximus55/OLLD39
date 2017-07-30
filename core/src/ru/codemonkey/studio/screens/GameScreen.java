@@ -123,6 +123,7 @@ public class GameScreen implements Screen {
 
         if (player.HP < 0) {
             game.setScreen(new GameOverScreen(game));
+            musicPlayer.dispose();
         }
     }
 
