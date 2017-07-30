@@ -33,6 +33,7 @@ public class Enemy extends Sprite implements Disposable{
     private boolean isAlive;
     private float volume;
     private float timer;
+    public float timerAttack;
 
     public Enemy(TextureRegion texture, World world, World worldL, TiledMap map, RayHandler rayHandler, float volume, Vector2 pos){
         super(texture);
@@ -40,7 +41,7 @@ public class Enemy extends Sprite implements Disposable{
         HP = 100;
         isAlive = true;
         timer = 0;
-
+        timerAttack = 3f;
         BodyDef bDef = new BodyDef();
         bDef.type = BodyDef.BodyType.DynamicBody;
         bDef.position.set(pos);

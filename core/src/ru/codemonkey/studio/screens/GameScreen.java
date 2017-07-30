@@ -36,8 +36,6 @@ public class GameScreen implements Screen {
     ArrayList<Enemy> mobs;
     ArrayList<Povestka> povestkas;
 
-    private float timerAttack = 3f;
-
     private Texture texture;
 
     public GameScreen(Power game) {
@@ -73,17 +71,20 @@ public class GameScreen implements Screen {
         Gdx.gl20.glClearColor(0, 0, 0, 1);
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        timerAttack -= delta;
-        if (timerAttack <= 0) {
-            for (int i = 0; i < mobs.size(); i++) {
-                if (mobs.get(i).getPos().dst(player.getPos()) < 80 / Power.S) {
+        player.update();
+
+        for (int i = 0; i < mobs.size(); i++) {
+            if (mobs.get(i).timerAttack <= 0){
+                if (mobs.get(i).getPos().dst(player.getPos()) < 400 / Power.S) {
                     Povestka povestka = new Povestka(game.skin.getRegion("povestka"), gameWorld.world, mobs.get(i).getPos(), controlHandler, 20, mobs.get(i).getRotation());
                     povestkas.add(povestka);
+                    mobs.get(i).timerAttack = 3f;
                 }
             }
-            timerAttack = 3f;
+            else{
+                mobs.get(i).timerAttack -= delta;
+            }
         }
-        player.update();
         if (Gdx.input.justTouched()) {
             Bullet bullet = new Bullet(texture, gameWorld.world, renderer.rayHandler, player.getPos(), controlHandler, 40);
             bullets.add(bullet);
