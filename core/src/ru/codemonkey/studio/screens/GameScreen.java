@@ -75,7 +75,7 @@ public class GameScreen implements Screen {
             bullets.add(bullet);
         }
         for (int i = 0; i < mobs.size();i++){
-            mobs.get(i).update(player.getPos());
+            mobs.get(i).update(player.getPos(), mobs);
         }
         for (int i = 0; i < bullets.size(); i++) {
             if (bullets.get(i).a) {
@@ -91,6 +91,7 @@ public class GameScreen implements Screen {
 
         renderer.render(player, bullets, mobs);
     }
+
 
     @Override
     public void resize(int width, int height) {

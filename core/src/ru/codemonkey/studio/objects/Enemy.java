@@ -18,6 +18,8 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
 
+import java.util.ArrayList;
+
 import box2dLight.RayHandler;
 import ru.codemonkey.studio.Power;
 import ru.codemonkey.studio.tools.ControlHandler;
@@ -59,9 +61,14 @@ public class Enemy extends Sprite implements Disposable{
         body.setUserData("enemy");
     }
 
-    public void update(Vector2 posHero){
+    public void update(Vector2 posHero, ArrayList<Enemy> mobs){
         goToHero(posHero);
+        avoid(mobs);
+
         setPosition(body.getPosition().x * Power.S - getWidth() / 2, body.getPosition().y * Power.S - getHeight() / 2);
+    }
+    public Vector2 getPos(){
+        return body.getPosition();
     }
 
     public void goToHero(Vector2 posHero){
@@ -72,6 +79,18 @@ public class Enemy extends Sprite implements Disposable{
         body.setLinearVelocity(c);
 //        c.sub(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
         setRotation(c.angle());
+    }
+    public void avoid(ArrayList<Enemy> mobs){
+        for(Enemy mob : mobs){
+            if (mob != this){
+                Vector2 dist = this.getPos().sub(mob.getPos());
+                if(dist.len() > 0 && dist.len() < 80 / Power.S){
+                    Vector2 c =body.getLinearVelocity();
+                    c.add(dist.nor());
+                    body.setLinearVelocity(c);
+                }
+            }
+        }
     }
 
 
