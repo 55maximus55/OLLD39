@@ -19,7 +19,7 @@ public class Power extends Game {
 	public void create () {
 		batch = new SpriteBatch();
 		skin = new Skin();
-		atlas = new TextureAtlas(Gdx.files.internal("characters/player.pack"));
+		atlas = new TextureAtlas(Gdx.files.internal("characters/characters.pack"));
 		skin.addRegions(atlas);
 		setScreen(new GameScreen(this));
 	}

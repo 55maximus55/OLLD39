@@ -49,7 +49,7 @@ public class GameScreen implements Screen {
         for(MapObject object : gameWorld.map.getLayers().get("enemy").getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             Vector2 pos = new Vector2(rect.getX() / Power.S + rect.getWidth() / 2 / Power.S, rect.getY() / Power.S + rect.getHeight() / 2 / Power.S);
-            mobs.add(new Enemy(game.skin.getRegion("player_reload"), gameWorld.world, gameWorld.map, renderer.rayHandler, 1f, pos));
+            mobs.add(new Enemy(game.skin.getRegion("soldier"), gameWorld.world, gameWorld.map, renderer.rayHandler, 1f, pos));
         }
         bullets = new ArrayList<Bullet>();
         gameWorld.world.setContactListener(new PowerContactListener(gameWorld.world, player, bullets));
