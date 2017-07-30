@@ -92,6 +92,10 @@ public class Enemy extends Sprite implements Disposable{
             }
         }
     }
+    public void hurt(){
+        Vector2 c = body.getLinearVelocity();
+        body.setLinearVelocity(c.x * - 1, c.y * -1);
+    }
 
 
 
@@ -99,5 +103,8 @@ public class Enemy extends Sprite implements Disposable{
     @Override
     public void dispose() {
 
+    }
+    public Body getBody() {
+        return body;
     }
 }

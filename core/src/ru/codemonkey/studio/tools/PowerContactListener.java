@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import ru.codemonkey.studio.objects.Bullet;
+import ru.codemonkey.studio.objects.Enemy;
 import ru.codemonkey.studio.objects.Player;
 
 /**
@@ -20,11 +21,13 @@ public class PowerContactListener implements ContactListener {
     private World world;
     private Player player;
     private ArrayList<Bullet> bullets;
+    private ArrayList<Enemy> mobs;
 
-    public PowerContactListener(World world, Player player, ArrayList<Bullet> bullets) {
+    public PowerContactListener(World world, Player player, ArrayList<Bullet> bullets , ArrayList<Enemy> mobs) {
         this.world = world;
         this.player = player;
         this.bullets = bullets;
+        this.mobs = mobs;
     }
 
     @Override
@@ -37,12 +40,26 @@ public class PowerContactListener implements ContactListener {
                     }
                 }
             }
+            for (int i = 0; i < mobs.size();i++){
+                if (mobs.get(i).getBody() ==  contact.getFixtureB().getBody()){
+                    if(mobs.get(i).getBody() != null){
+                        mobs.get(i).hurt();
+                    }
+                }
+            }
         }
         else if (contact.getFixtureB().getBody().getUserData().equals("enemy") && contact.getFixtureA().getBody().getUserData().equals("bullet")) {
             for (int i = 0; i < bullets.size(); i++) {
                 if (bullets.get(i).getBody() == contact.getFixtureA().getBody()) {
                     if (bullets.get(i).getBody() != null) {
                         bullets.get(i).a = false;
+                    }
+                }
+            }
+            for (int i = 0; i < mobs.size();i++){
+                if (mobs.get(i).getBody() ==  contact.getFixtureA().getBody()){
+                    if(mobs.get(i).getBody() != null){
+                        mobs.get(i).hurt();
                     }
                 }
             }
