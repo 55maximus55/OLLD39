@@ -19,6 +19,7 @@ import ru.codemonkey.studio.objects.Player;
 import ru.codemonkey.studio.objects.Povestka;
 import ru.codemonkey.studio.tools.DETControlHandler;
 import ru.codemonkey.studio.tools.GameRenderer;
+import ru.codemonkey.studio.tools.MusicPlayer;
 import ru.codemonkey.studio.tools.PowerContactListener;
 
 /**
@@ -31,12 +32,11 @@ public class GameScreen implements Screen {
     private GameWorld gameWorld;
     private GameRenderer renderer;
     private DETControlHandler controlHandler;
+    public MusicPlayer musicPlayer;
     private Player player;
     ArrayList<Bullet> bullets;
     ArrayList<Enemy> mobs;
     ArrayList<Povestka> povestkas;
-
-    private float timerAttack = 0.5f;
 
     private Texture texture;
 
@@ -58,6 +58,8 @@ public class GameScreen implements Screen {
         povestkas = new ArrayList<Povestka>();
         gameWorld.world.setContactListener(new PowerContactListener(gameWorld.world, player, bullets,mobs, povestkas));
 
+        musicPlayer = new MusicPlayer(0.5f);
+
         texture = new Texture("objects/bullet.png");
     }
 
@@ -73,20 +75,21 @@ public class GameScreen implements Screen {
         Gdx.gl20.glClearColor(0, 0, 0, 1);
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        timerAttack -= delta;
-        if (timerAttack <= 0) {
-            for (int i = 0; i < mobs.size(); i++) {
-                Povestka povestka = new Povestka(game.skin.getRegion("povestka"), gameWorld.world, mobs.get(i).getPos(), controlHandler, 20, mobs.get(i).getRotation());
-                povestkas.add(povestka);
-            }
-            timerAttack = 0.5f;
-        }
+        player.update();
+
         for (int i = 0; i < mobs.size(); i++) {
-            if (mobs.get(i).getPos().dst(player.getPos()) < 80 / Power.S) {
-                Povestka povestka = new Povestka(game.skin.getRegion("povestka"), gameWorld.world, mobs.get(i).getPos(), controlHandler, 20, mobs.get(i).getRotation());
-                povestkas.add(povestka);
+            if (mobs.get(i).timerAttack <= 0){
+                if (mobs.get(i).getPos().dst(player.getPos()) < 400 / Power.S) {
+                    Povestka povestka = new Povestka(game.skin.getRegion("povestka"), gameWorld.world, mobs.get(i).getPos(), controlHandler, 20, mobs.get(i).getRotation());
+                    povestkas.add(povestka);
+                    mobs.get(i).timerAttack = 3f;
+                }
+            }
+            else{
+                mobs.get(i).timerAttack -= delta;
             }
         }
+        musicPlayer.update();
         player.update();
         if (Gdx.input.justTouched()) {
             Bullet bullet = new Bullet(texture, gameWorld.world, renderer.rayHandler, player.getPos(), controlHandler, 40);

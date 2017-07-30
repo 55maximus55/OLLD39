@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.2" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" nextobjectid="44">
+<map version="1.0" tiledversion="1.0.2" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" nextobjectid="51">
  <tileset firstgid="1" name="tilesheet_complete" tilewidth="32" tileheight="32" tilecount="2160" columns="54">
   <image source="tilesheet_complete.png" width="1728" height="1280"/>
  </tileset>
@@ -230,6 +230,13 @@
   <object id="42" x="160" y="416" width="32" height="32"/>
   <object id="43" x="64" y="480" width="32" height="32"/>
  </objectgroup>
+ <objectgroup name="battery">
+  <object id="44" x="192" y="928" width="32" height="32"/>
+  <object id="45" x="608" y="576" width="32" height="32"/>
+  <object id="46" x="256" y="192" width="32" height="32"/>
+  <object id="47" x="928" y="64" width="32" height="32"/>
+  <object id="48" x="448" y="768"/>
+ </objectgroup>
  <objectgroup name="walls">
   <object id="7" x="64" y="0" width="960" height="64"/>
   <object id="8" x="960" y="64" width="32"/>
@@ -252,5 +259,6 @@
   <object id="38" x="0" y="672" height="192"/>
   <object id="39" x="384" y="1024" width="320"/>
   <object id="40" x="0" y="96" height="128"/>
+  <object id="49" x="0" y="320" height="224"/>
  </objectgroup>
 </map>
