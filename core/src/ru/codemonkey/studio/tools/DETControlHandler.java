@@ -100,7 +100,7 @@ public class DETControlHandler implements Disposable
         return null;
     }
 
-    public Vector2 vectorSinCos(Vector2 vector) {
+    public static Vector2 vectorSinCos(Vector2 vector) {
         Vector2 result = new Vector2(vector);
 
         if (result.x == 0) {

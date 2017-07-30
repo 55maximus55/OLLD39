@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.Disposable;
 import box2dLight.RayHandler;
 import ru.codemonkey.studio.Power;
 import ru.codemonkey.studio.tools.ControlHandler;
+import ru.codemonkey.studio.tools.DETControlHandler;
 
 /**
  * Created by mark on 29.07.17.
@@ -66,6 +67,7 @@ public class Enemy extends Sprite implements Disposable{
 
     public void goToHero(Vector2 posHero){
         Vector2 c = posHero;
+        c = DETControlHandler.vectorSinCos(c);
         c.x *= 3.3f;
         c.y *= 3.3f;
         body.applyLinearImpulse(c, body.getWorldCenter(), true);
