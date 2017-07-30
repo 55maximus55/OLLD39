@@ -14,6 +14,7 @@ import box2dLight.RayHandler;
 import ru.codemonkey.studio.objects.Bullet;
 import ru.codemonkey.studio.objects.Enemy;
 import ru.codemonkey.studio.objects.Player;
+import ru.codemonkey.studio.objects.Povestka;
 
 /**
  * Created by maximus on 29.07.2017.
@@ -51,7 +52,7 @@ public class GameRenderer implements Disposable {
         mapRenderer = new OrthogonalTiledMapRenderer(map);
     }
 
-    public void render(Player player, ArrayList<Bullet> bullets, ArrayList<Enemy> mobs) {
+    public void render(Player player, ArrayList<Bullet> bullets, ArrayList<Enemy> mobs, ArrayList<Povestka> povestkas) {
         mapRenderer.render();
         batch.begin();
         for (int i = 0; i < mobs.size();i++){
@@ -60,6 +61,10 @@ public class GameRenderer implements Disposable {
         for (int i = 0; i < bullets.size(); i++) {
             bullets.get(i).draw(batch);
         }
+        for (int i = 0; i < povestkas.size(); i++) {
+            povestkas.get(i).draw(batch);
+        }
+
         player.draw(batch);
         batch.end();
         rayHandler.setCombinedMatrix(camera);

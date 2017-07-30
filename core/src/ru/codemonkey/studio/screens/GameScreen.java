@@ -36,6 +36,7 @@ public class GameScreen implements Screen {
     ArrayList<Enemy> mobs;
     ArrayList<Povestka> povestkas;
 
+    private float timerAttack = 3f;
 
     private Texture texture;
 
@@ -55,6 +56,7 @@ public class GameScreen implements Screen {
         }
         bullets = new ArrayList<Bullet>();
         gameWorld.world.setContactListener(new PowerContactListener(gameWorld.world, player, bullets,mobs));
+        povestkas = new ArrayList<Povestka>();
 
         texture = new Texture("objects/bullet.png");
     }
@@ -71,6 +73,16 @@ public class GameScreen implements Screen {
         Gdx.gl20.glClearColor(0, 0, 0, 1);
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        timerAttack -= delta;
+        if (timerAttack <= 0) {
+            for (int i = 0; i < mobs.size(); i++) {
+                if (mobs.get(i).getPos().dst(player.getPos()) < 80 / Power.S) {
+                    Povestka povestka = new Povestka(game.skin.getRegion("povestka"), gameWorld.world, mobs.get(i).getPos(), controlHandler, 20, mobs.get(i).getRotation());
+                    povestkas.add(povestka);
+                }
+            }
+            timerAttack = 3f;
+        }
         player.update();
         if (Gdx.input.justTouched()) {
             Bullet bullet = new Bullet(texture, gameWorld.world, renderer.rayHandler, player.getPos(), controlHandler, 40);
@@ -78,6 +90,7 @@ public class GameScreen implements Screen {
         }
         for (int i = 0; i < mobs.size();i++){
             mobs.get(i).update(delta,player.getPos(), mobs);
+
         }
         for (int i = 0; i < bullets.size(); i++) {
             if (bullets.get(i).a) {
@@ -87,11 +100,19 @@ public class GameScreen implements Screen {
                 bullets.remove(i);
             }
         }
+        for (int i = 0; i < povestkas.size(); i++) {
+            if (povestkas.get(i).a) {
+                povestkas.get(i).update();
+            } else {
+                gameWorld.world.destroyBody(povestkas.get(i).getBody());
+                povestkas.remove(i);
+            }
+        }
 
         gameWorld.update(delta);
         renderer.update(player.getPos().x * Power.S, player.getPos().y * Power.S);
 
-        renderer.render(player, bullets, mobs);
+        renderer.render(player, bullets, mobs, povestkas);
     }
 
 

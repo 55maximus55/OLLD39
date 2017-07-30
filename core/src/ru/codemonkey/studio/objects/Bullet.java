@@ -57,8 +57,8 @@ public class Bullet extends Sprite implements Disposable {
 
     @Override
     public void dispose() {
-
     }
+
 
     public Body getBody() {
         return body;

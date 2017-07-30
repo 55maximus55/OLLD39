@@ -44,6 +44,7 @@ public class Player extends Sprite implements Disposable {
         this.controlHandler = controlHandler;
         this.volume = volume;
         HP = 100;
+        lampPower = 100;
         isAlive = true;
 
         BodyDef bDef = new BodyDef();
