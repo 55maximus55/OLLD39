@@ -29,7 +29,7 @@ public class MainMenuScreen implements Screen {
 
     public MainMenuScreen(final Power game) {
 
-        sound = Gdx.audio.newSound(Gdx.files.internal("sounds/select.wav"));
+//        sound = Gdx.audio.newSound(Gdx.files.internal("sounds/select.wav"));
 
 
         camera = new OrthographicCamera();
@@ -67,7 +67,7 @@ public class MainMenuScreen implements Screen {
             }
         });
 
-        table.add(newGame).size(Gdx.graphics.getHeight() * 13 / 36, Gdx.graphics.getHeight() / 8).row();
+        table.add(newGame);
 
         stage.addActor(table);
     }

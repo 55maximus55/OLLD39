@@ -26,12 +26,13 @@ public class Power extends Game {
 		atlas = new TextureAtlas(Gdx.files.internal("characters/characters.pack"));
 		atlas1 =  new TextureAtlas(Gdx.files.internal("objects/objects.pack"));
 		skin.addRegions(atlas);
-		setScreen(new MainMenuScreen(this));
+		skin.addRegions(atlas1);
 
 		font16 = new BitmapFont(Gdx.files.internal("fonts/roboto_16.fnt"), Gdx.files.internal("fonts/roboto_16.png"), false);
 		font24 = new BitmapFont(Gdx.files.internal("fonts/roboto_24.fnt"), Gdx.files.internal("fonts/roboto_24.png"), false);
 		font32 = new BitmapFont(Gdx.files.internal("fonts/roboto_32.fnt"), Gdx.files.internal("fonts/roboto_32.png"), false);
 
+		setScreen(new MainMenuScreen(this));
 
 	}
 	
