@@ -1,9 +1,9 @@
 package ru.codemonkey.studio.objects;
 
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g3d.environment.PointLight;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -16,6 +16,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
 
+import box2dLight.ConeLight;
 import box2dLight.RayHandler;
 import ru.codemonkey.studio.Power;
 import ru.codemonkey.studio.tools.DETControlHandler;
@@ -26,7 +27,7 @@ import ru.codemonkey.studio.tools.DETControlHandler;
 
 public class Player extends Sprite implements Disposable {
     private Body body;
-    private PointLight light;
+    private ConeLight light;
     private float volume;
     private int HP;
     private int lampPower;
@@ -62,6 +63,8 @@ public class Player extends Sprite implements Disposable {
 
         body.createFixture(fDef);
         body.setUserData("player");
+
+        light = new ConeLight(rayHandler, 500, Color.WHITE, 1.5f, 0, 0, 0, 45);
     }
 
     public void update() {
@@ -69,6 +72,7 @@ public class Player extends Sprite implements Disposable {
         control();
         setPosition(body.getPosition().x * Power.S - getWidth() / 2, body.getPosition().y * Power.S - getHeight() / 2);
         setRotation(controlHandler.mouseControl());
+        light.setDirection(360 - controlHandler.mouseControl());
     }
 
     private void friction() {
