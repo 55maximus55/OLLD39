@@ -120,6 +120,10 @@ public class GameScreen implements Screen {
         renderer.update(player.getPos().x * Power.S, player.getPos().y * Power.S);
 
         renderer.render(player, bullets, mobs, povestkas);
+
+        if (player.HP < 0) {
+            game.setScreen(new GameOverScreen(game));
+        }
     }
 
 
