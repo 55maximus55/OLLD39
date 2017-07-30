@@ -19,6 +19,7 @@ import ru.codemonkey.studio.objects.Player;
 import ru.codemonkey.studio.objects.Povestka;
 import ru.codemonkey.studio.tools.DETControlHandler;
 import ru.codemonkey.studio.tools.GameRenderer;
+import ru.codemonkey.studio.tools.MusicPlayer;
 import ru.codemonkey.studio.tools.PowerContactListener;
 
 /**
@@ -31,6 +32,7 @@ public class GameScreen implements Screen {
     private GameWorld gameWorld;
     private GameRenderer renderer;
     private DETControlHandler controlHandler;
+    public MusicPlayer musicPlayer;
     private Player player;
     ArrayList<Bullet> bullets;
     ArrayList<Enemy> mobs;
@@ -55,6 +57,8 @@ public class GameScreen implements Screen {
         bullets = new ArrayList<Bullet>();
         gameWorld.world.setContactListener(new PowerContactListener(gameWorld.world, player, bullets,mobs));
         povestkas = new ArrayList<Povestka>();
+
+        musicPlayer = new MusicPlayer(0.5f);
 
         texture = new Texture("objects/bullet.png");
     }
@@ -85,6 +89,8 @@ public class GameScreen implements Screen {
                 mobs.get(i).timerAttack -= delta;
             }
         }
+        musicPlayer.update();
+        player.update();
         if (Gdx.input.justTouched()) {
             Bullet bullet = new Bullet(texture, gameWorld.world, renderer.rayHandler, player.getPos(), controlHandler, 40);
             bullets.add(bullet);
