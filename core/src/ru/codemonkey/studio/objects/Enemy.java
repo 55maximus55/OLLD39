@@ -124,6 +124,7 @@ public class Enemy extends Sprite implements Disposable{
     public void dispose() {
 
     }
+
     public Body getBody() {
         return body;
     }
