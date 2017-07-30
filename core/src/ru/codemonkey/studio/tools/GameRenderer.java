@@ -62,6 +62,7 @@ public class GameRenderer implements Disposable {
         }
         player.draw(batch);
         batch.end();
+        rayHandler.setCombinedMatrix(camera);
         rayHandler.updateAndRender();
         debugRenderer.render(world, camera.combined);
     }

@@ -41,7 +41,7 @@ public class GameScreen implements Screen {
         this.game = game;
 
         gameWorld = new GameWorld("1");
-        renderer = new GameRenderer(game.batch, gameWorld.map, gameWorld.world);
+        renderer = new GameRenderer(game.batch, gameWorld.map, gameWorld.worldLight);
         controlHandler = new DETControlHandler();
         mobs = new ArrayList<Enemy>();
         player = new Player(game.skin.getRegion("player_gun"),gameWorld.world, gameWorld.map, controlHandler, renderer.rayHandler, 1f);
