@@ -58,7 +58,7 @@ class GameScreen implements Screen {
             if (!gameWorld.enemies.get(i).isAlive){
                 gameWorld.enemies.get(i).die(gameWorld.world,game.skin.getRegion("player_reload"));
             }
-            if (gameWorld.enemies.get(i).timerAttack <= 0 && gameWorld.enemies.get(i).isAlive && gameWorld.enemies.get(i).isDie){
+            if (gameWorld.enemies.get(i).timerAttack <= 0 && gameWorld.enemies.get(i).isAlive && !gameWorld.enemies.get(i).isDie){
                 if (gameWorld.enemies.get(i).getPos().dst(gameWorld.player.getPos()) < 400 / DET.S) {
                     Povestka povestka = new Povestka(game.skin.getRegion("povestka"), gameWorld, gameWorld.enemies.get(i).getPos(), 20, gameWorld.enemies.get(i).getRotation());
                     gameWorld.povestkas.add(povestka);

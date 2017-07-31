@@ -68,14 +68,14 @@ public class GameRenderer implements Disposable {
     public void render(GameWorld gameWorld) {
         mapRenderer.render();
         batch.begin();
+        for (int i = 0; i < gameWorld.enemies.size(); i++) {
+            gameWorld.enemies.get(i).draw(batch);
+        }
         for (int i = 0; i < gameWorld.bullets.size(); i++) {
             gameWorld.bullets.get(i).draw(batch);
         }
         for (int i = 0; i < gameWorld.povestkas.size(); i++) {
             gameWorld.povestkas.get(i).draw(batch);
-        }
-        for (int i = 0; i < gameWorld.enemies.size(); i++) {
-            gameWorld.enemies.get(i).draw(batch);
         }
         gameWorld.player.draw(batch);
         batch.end();
