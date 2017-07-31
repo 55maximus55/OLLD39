@@ -74,10 +74,10 @@ public class GameRenderer implements Disposable {
         for (int i = 0; i < gameWorld.povestkas.size(); i++) {
             gameWorld.povestkas.get(i).draw(batch);
         }
-        gameWorld.player.draw(batch);
         for (int i = 0; i < gameWorld.enemies.size(); i++) {
             gameWorld.enemies.get(i).draw(batch);
         }
+        gameWorld.player.draw(batch);
         batch.end();
         rayHandler.updateAndRender();
     }

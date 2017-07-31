@@ -46,9 +46,9 @@ public class DETContactListener implements ContactListener {
             if (contact.getFixtureA().getBody().getUserData() == "player" || contact.getFixtureB().getBody().getUserData() == "player") {
                 contact.setEnabled(false);
             } else {
-                if (contact.getFixtureA().getBody().getUserData() == "enemy" || contact.getFixtureB().getBody().getUserData() == "enemy") {
+                if (contact.getFixtureA().getBody().getUserData() == "enemy"  || contact.getFixtureB().getBody().getUserData() == "enemy" ) {
                     for (int i = 0; i < enemies.size(); i++) {
-                        if (contact.getFixtureA().getBody() == enemies.get(i).getBody() || contact.getFixtureB().getBody() == enemies.get(i).getBody()) {
+                        if (!enemies.get(i).isDie && (contact.getFixtureA().getBody() == enemies.get(i).getBody() || contact.getFixtureB().getBody() == enemies.get(i).getBody())) {
                             enemies.get(i).hurt();
                         }
                     }

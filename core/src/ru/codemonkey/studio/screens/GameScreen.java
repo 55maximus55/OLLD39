@@ -2,6 +2,7 @@ package ru.codemonkey.studio.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Texture;
 
 import ru.codemonkey.studio.DET;
 import ru.codemonkey.studio.objects.Bullet;
@@ -54,7 +55,10 @@ class GameScreen implements Screen {
             gameWorld.bullets.add(bullet);
         }
         for (int i = 0; i < gameWorld.enemies.size(); i++) {
-            if (gameWorld.enemies.get(i).timerAttack <= 0){
+            if (!gameWorld.enemies.get(i).isAlive){
+                gameWorld.enemies.get(i).die(gameWorld.world,game.skin.getRegion("player_reload"));
+            }
+            if (gameWorld.enemies.get(i).timerAttack <= 0 && gameWorld.enemies.get(i).isAlive && gameWorld.enemies.get(i).isDie){
                 if (gameWorld.enemies.get(i).getPos().dst(gameWorld.player.getPos()) < 400 / DET.S) {
                     Povestka povestka = new Povestka(game.skin.getRegion("povestka"), gameWorld, gameWorld.enemies.get(i).getPos(), 20, gameWorld.enemies.get(i).getRotation());
                     gameWorld.povestkas.add(povestka);

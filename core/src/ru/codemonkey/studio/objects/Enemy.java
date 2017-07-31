@@ -1,6 +1,7 @@
 package ru.codemonkey.studio.objects;
 
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.environment.PointLight;
@@ -26,6 +27,10 @@ import ru.codemonkey.studio.tools.DETControlHandler;
 public class Enemy extends Sprite {
     private Body body;
     private Body bodyL;
+    private int HP;
+
+    public boolean isAlive;
+    public boolean isDie;
 
     private float timer;
     public float timerAttack;
@@ -33,9 +38,9 @@ public class Enemy extends Sprite {
     Enemy(TextureRegion textureRegion, GameWorld gameWorld, Vector2 pos) {
         super(textureRegion);
 
+        HP = 2;
         timer = 0;
         timerAttack = 3f;
-
         BodyDef bDef = new BodyDef();
         bDef.type = BodyDef.BodyType.DynamicBody;
         bDef.position.set(pos);
@@ -62,11 +67,14 @@ public class Enemy extends Sprite {
         fDef.restitution = 1;
         fDef.density = 0;
         bodyL.createFixture(fDef);
+        isAlive = true;
+        isDie = false;
     }
 
     public void update(float delta, Vector2 posPlayer, ArrayList<Enemy> enemies) {
+        isAlived();
         timer -= delta;
-        if (timer < 0) {
+        if (timer < 0 && isAlive){
             goToPlayer(posPlayer);
             avoid(enemies);
         }
@@ -101,7 +109,23 @@ public class Enemy extends Sprite {
         timer = 0.1f;
         Vector2 c = body.getLinearVelocity();
         body.setLinearVelocity(c.x * -0.05f, c.y * -0.05f);
+        HP --;
     }
+    public void isAlived(){
+        isAlive = HP >= 0;
+    }
+
+    public void die(World world, TextureRegion texture){
+        if (!isDie){
+            setRegion(texture);
+            body.setActive(false);
+            bodyL.setActive(false);
+//            world.destroyBody(body);
+//            world.destroyBody(bodyL);
+            isDie = true;
+        }
+    }
+
 
     public Vector2 getPos() {
         return body.getPosition();
