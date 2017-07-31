@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-import ru.codemonkey.studio.Power;
+import ru.codemonkey.studio.DET;
 
 /**
  * Created by maximus on 29.07.2017.
@@ -30,11 +30,11 @@ public class Box2dWorldCreator {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set(rect.getX() / Power.S + rect.getWidth() / Power.S / 2, rect.getY() / Power.S + rect.getHeight() / Power.S / 2);
+            bdef.position.set(rect.getX() / DET.S + rect.getWidth() / DET.S / 2, rect.getY() / DET.S + rect.getHeight() / DET.S / 2);
 
             body = world.createBody(bdef);
 
-            shape.setAsBox(rect.getWidth() / Power.S / 2, rect.getHeight() / Power.S / 2);
+            shape.setAsBox(rect.getWidth() / DET.S / 2, rect.getHeight() / DET.S / 2);
             fdef.shape = shape;
             body.createFixture(fdef);
             body.setUserData("wall");

@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -14,43 +13,29 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
-import ru.codemonkey.studio.Power;
+import ru.codemonkey.studio.DET;
 
 /**
  * Created by 1 on 30.07.2017.
  */
 
-public class GameOverScreen implements Screen {
+class GameOverScreen implements Screen {
 
     private Stage stage;
     private OrthographicCamera camera;
 
     private Sound sound;
 
-
-    public GameOverScreen(final Power game){
-
-        sound = Gdx.audio.newSound(Gdx.files.internal("sounds/select.wav"));
-
-
+    GameOverScreen(final DET game) {
         camera = new OrthographicCamera();
         stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera));
         Gdx.input.setInputProcessor(stage);
 
+        sound = Gdx.audio.newSound(Gdx.files.internal("sounds/select.wav"));
 
         Table table = new Table();
         table.center();
         table.setFillParent(true);
-
-        Table tableB = new Table();
-        tableB.bottom().right();
-        tableB.setFillParent(true);
-
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = game.font24;
-        labelStyle.fontColor = Color.GRAY;
-
-        Label label = new Label("Game Over", labelStyle);
 
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = game.font32;
@@ -58,6 +43,12 @@ public class GameOverScreen implements Screen {
         textButtonStyle.down = game.skin.getDrawable("btn_pressed");
         textButtonStyle.pressedOffsetX = 1;
         textButtonStyle.pressedOffsetY = -1;
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = game.font24;
+        labelStyle.fontColor = Color.GRAY;
+
+        Label label = new Label("Game Over", labelStyle);
 
         TextButton newGame = new TextButton("Back to Main Menu", textButtonStyle);
         newGame.addListener(new ClickListener() {
@@ -71,10 +62,10 @@ public class GameOverScreen implements Screen {
         });
 
         table.add(label);
+        table.row();
         table.add(newGame);
 
         stage.addActor(table);
-
     }
 
     @Override
@@ -84,9 +75,6 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl20.glClearColor(0, 0, 0, 1);
-        Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         camera.update();
 
         stage.act(delta);
@@ -117,5 +105,6 @@ public class GameOverScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
+        sound.dispose();
     }
 }

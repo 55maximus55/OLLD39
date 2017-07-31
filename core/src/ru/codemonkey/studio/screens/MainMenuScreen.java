@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
-import ru.codemonkey.studio.Power;
+import ru.codemonkey.studio.DET;
 
 /**
  * Created by maximus on 29.07.2017.
@@ -27,27 +27,16 @@ public class MainMenuScreen implements Screen {
 
     private Sound sound;
 
-    public MainMenuScreen(final Power game) {
-
-        sound = Gdx.audio.newSound(Gdx.files.internal("sounds/select.wav"));
-
-
+    public MainMenuScreen(final DET game) {
         camera = new OrthographicCamera();
         stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera));
         Gdx.input.setInputProcessor(stage);
 
+        sound = Gdx.audio.newSound(Gdx.files.internal("sounds/select.wav"));
 
         Table table = new Table();
         table.center();
         table.setFillParent(true);
-
-        Table tableB = new Table();
-        tableB.bottom().right();
-        tableB.setFillParent(true);
-
-        Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = game.font24;
-        labelStyle.fontColor = Color.GRAY;
 
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = game.font32;
@@ -79,7 +68,6 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
-
         Gdx.gl20.glClearColor(0, 0, 0, 1);
         Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -88,7 +76,6 @@ public class MainMenuScreen implements Screen {
         stage.act(delta);
         stage.setDebugAll(false);
         stage.draw();
-
     }
 
     @Override
@@ -114,5 +101,6 @@ public class MainMenuScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
+        sound.dispose();
     }
 }

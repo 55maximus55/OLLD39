@@ -2,6 +2,7 @@ package ru.codemonkey.studio;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -9,35 +10,54 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import ru.codemonkey.studio.screens.MainMenuScreen;
 
-public class Power extends Game {
+public class DET extends Game {
 	public SpriteBatch batch;
-	private TextureAtlas atlas, atlas1;
+
 	public Skin skin;
+	private TextureAtlas characters, objects;
+
 	public BitmapFont font16;
 	public BitmapFont font24;
 	public BitmapFont font32;
 
-	public static final int S = 10;
-	
+	public static final float S = 10f;
+
 	@Override
-	public void create () {
+	public void create() {
 		batch = new SpriteBatch();
 		skin = new Skin();
-		atlas = new TextureAtlas(Gdx.files.internal("characters/characters.pack"));
-		atlas1 =  new TextureAtlas(Gdx.files.internal("objects/objects.pack"));
-		skin.addRegions(atlas);
-		skin.addRegions(atlas1);
+
+		characters = new TextureAtlas("textures/characters.pack");
+		objects = new TextureAtlas("textures/objects.pack");
+
+		skin.addRegions(characters);
+		skin.addRegions(objects);
 
 		font16 = new BitmapFont(Gdx.files.internal("fonts/roboto_16.fnt"), Gdx.files.internal("fonts/roboto_16.png"), false);
 		font24 = new BitmapFont(Gdx.files.internal("fonts/roboto_24.fnt"), Gdx.files.internal("fonts/roboto_24.png"), false);
 		font32 = new BitmapFont(Gdx.files.internal("fonts/roboto_32.fnt"), Gdx.files.internal("fonts/roboto_32.png"), false);
 
 		setScreen(new MainMenuScreen(this));
-
 	}
-	
+
 	@Override
-	public void dispose () {
+	public void render() {
+		Gdx.gl20.glClearColor(0, 0, 0, 1);
+		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		super.render();
+	}
+
+	@Override
+	public void dispose() {
+		super.dispose();
 		batch.dispose();
+
+		skin.dispose();
+		characters.dispose();
+		objects.dispose();
+
+		font16.dispose();
+		font24.dispose();
+		font32.dispose();
 	}
 }
