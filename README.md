@@ -1,6 +1,6 @@
 # DET
 
-![](https://raw.githubusercontent.com/i55maximus55i-games/Ludum-Dare-38-Terrarum/master/github/Terrarum.png)
+![](https://raw.githubusercontent.com/i55maximus55i-games/Ludum-Dare-39-DET/master/github/DET.png)
 
 
 #  What is this?
